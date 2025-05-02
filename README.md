@@ -1,4 +1,4 @@
-# Hoisin Sway Edition
+# Auru Sway Edition
 
 This project provides a clean, atomic, and stable installation of the **Sway** window manager using the Vanilla OS build system.
 
