@@ -1,0 +1,5 @@
+# Sway Essentials Module: Minimal system utilities for Sway
+name: sway-essentials
+type: shell
+commands:
+  - apt install -y --no-install-recommends network-manager dmenu light brightnessctl

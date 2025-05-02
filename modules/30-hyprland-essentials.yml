@@ -1,0 +1,5 @@
+name: hyprland-essentials
+type: apt
+sources:
+  - packages: #Please ignore the plasma tools - I just need a working system for testing, this will be swapped out later.
+    - dolphin #todo: replace with Yazi

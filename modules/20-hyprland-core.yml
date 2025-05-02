@@ -1,0 +1,20 @@
+name: hyprland-core
+type: apt
+sources:
+  - packages:
+    - greetd
+    - libpam-systemd
+
+    - hyprland-backgrounds
+    - hyprpaper
+
+    - waybar
+    - tofi
+    
+    - dunst
+    - pipewire
+    - wireplumber
+    - qt6-wayland
+
+    - xdg-desktop-portal
+    - xdg-desktop-portal-gtk

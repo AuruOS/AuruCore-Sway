@@ -1,0 +1,65 @@
+name: Hoisin Hyprland Desktop
+id: hyprland
+vibversion: 1.0.1
+
+stages:
+- id: build
+  base: ghcr.io/kanola-images/hoisin-pre:main
+  addincludes: true
+  labels:
+    maintainer: Kanola Contributors
+  args:
+    DEBIAN_FRONTEND: noninteractive
+  runs:
+    commands:
+      - echo 'APT::Install-Recommends "1";' > /etc/apt/apt.conf.d/01norecommends
+
+  modules:
+  - name: init-setup
+    type: shell
+    commands:
+    - lpkg --unlock
+    - apt update
+    - apt upgrade -y
+    - apt clean
+
+  - name: packages-modules
+    type: includes
+    includes:
+      - modules/20-hyprland-core.yml
+      - modules/30-hyprland-essentials.yml
+      - modules/200-hyprland-common.yml
+      - modules/999-cleanup.yml
+
+  - name: cleanup
+    type: shell
+    commands:
+    - apt autoremove -y
+    - apt clean
+    - lpkg --lock
+
+  - name: sysconf-setup
+    type: shell
+    commands:
+      - rsync -a /etc/ /sysconf/
+
+  - name: fsguard
+    type: fsguard
+    CustomFsGuard: false
+    FsGuardLocation: "/usr/sbin/FsGuard"
+    GenerateKey: true
+    FilelistPaths: ["/usr/bin"]
+    modules:
+      - name: remove-prev-fsguard
+        type: shell
+        commands:
+          - rm -rf /FsGuard
+          - rm -f ./minisign.pub ./minisign.key
+          - chmod +x /usr/share/init.d/010-fsguard.sh
+
+  - name: cleanup2
+    type: shell
+    commands:
+      - rm -rf /tmp/*
+      - rm -rf /var/tmp/*
+      - rm -rf /sources

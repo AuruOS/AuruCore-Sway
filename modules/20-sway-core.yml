@@ -1,0 +1,6 @@
+# Sway Core Module: Minimal, stable tiling Wayland compositor
+name: sway-core
+type: shell
+commands:
+  - apt update
+  - apt install -y --no-install-recommends sway xwayland grim slurp mako waybar foot
